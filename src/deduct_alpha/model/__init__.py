@@ -33,11 +33,18 @@ class Effect:
 
     def hydrate(self, context: dict[Generic, Anything]) -> Effect:
         hydrated = copy(self)
-        
-        for generic, value in self.associated.items():
-            if generic
-        
-        hydrated.associated
+
+        # 効果に設定されているジェネリクスに、新しい値を適用する。
+        for generic, value in context.items():
+            for key in hydrated.associated.keys():
+                if hydrated.associated[key] == generic:
+                    hydrated.associated[key] = value
+                    break
+            else:
+                raise ValueError(
+                    f"コンテキストのジェネリック{generic}は、"
+                    "この効果には使用されていません。"
+                )
 
         return hydrated
 

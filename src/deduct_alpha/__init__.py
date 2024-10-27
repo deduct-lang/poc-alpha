@@ -15,27 +15,7 @@ class Checker:
 
     def check_premise(self, effect: Effect) -> None:
         for i, premise_effect in enumerate(effect.rule.premise):
-            hydrated = copy(effect)
-
-            for generic, anything in premise_effect.associated.items():
-                # ジェネリックで使われているものが存在するか確認する。
-                match anything:
-                    case str() if anything not in effect.rule.generics:
-                        raise ValueError(
-                            f"指定された効果の{i}番目の前提のジェネリック{generic}には"
-                            f"ジェネリック{anything}が渡されましたが、これは存在していません。"
-                        )
-                    case Entity() if anything not in self.entities:
-                        raise ValueError(
-                            f"指定された効果の{i}番目の前提のジェネリック{generic}には"
-                            f"実体{anything}が渡されましたが、この実体はチェッカーに未設定です。"
-                        )
-
-                # ジェネリックを解決する。
-                if isinstance(anything, Entity):
-                    continue
-
-                hydrated.associated[generic] = effect.associated[generic]
+            hydrated = premise_effect.hydrate(effect.associated)
 
             # 前提を満たしているかを確認。
             if hydrated not in self.state:
