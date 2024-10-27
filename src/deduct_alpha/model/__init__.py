@@ -2,6 +2,7 @@ from __future__ import annotations
 
 __all__ = ("Entity", "Generic", "Anything", "Effect", "Rule")
 
+from copy import copy
 from dataclasses import dataclass
 
 
@@ -24,8 +25,21 @@ class Effect:
             if generic not in self.rule.generics:
                 raise ValueError("関連付けられたジェネリックは規則で使われていません。")
 
-    def __eq__(self, effect: Effect) -> bool:
-        return self.rule == effect.rule and self.associated == effect.associated
+    def __eq__(self, object: object) -> bool:
+        if not isinstance(object, Effect):
+            return False
+
+        return self.rule == object.rule and self.associated == object.associated
+
+    def hydrate(self, context: dict[Generic, Anything]) -> Effect:
+        hydrated = copy(self)
+        
+        for generic, value in self.associated.items():
+            if generic
+        
+        hydrated.associated
+
+        return hydrated
 
 
 @dataclass
