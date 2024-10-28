@@ -16,8 +16,8 @@ marisa = Entity()
 
 theory = deque(
     (
-        Effect(having, {"S": takagi, "O": cat}),
+        # Effect(having, {"S": takagi, "O": cat}),
         Effect(give, {"X": takagi, "Y": marisa, "O": cat}),
     )
 )
-Checker(theory, [takagi, cat, marisa])
+Checker(theory, [takagi, cat, marisa], {}).check_all()

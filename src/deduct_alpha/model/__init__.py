@@ -39,12 +39,6 @@ class Effect:
             for key in hydrated.associated.keys():
                 if hydrated.associated[key] == generic:
                     hydrated.associated[key] = value
-                    break
-            else:
-                raise ValueError(
-                    f"コンテキストのジェネリック{generic}は、"
-                    "この効果には使用されていません。"
-                )
 
         return hydrated
 
