@@ -12,3 +12,9 @@ build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/deduct_alpha"]
+
+[tool.uv]
+dev-dependencies = [
+    "mecab-python3>=1.0.9",
+    "pyyaml>=6.0.2",
+]
